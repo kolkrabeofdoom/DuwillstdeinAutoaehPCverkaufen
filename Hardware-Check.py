@@ -21,6 +21,7 @@ from urllib.parse import urlencode, urlsplit
 from urllib.request import Request, urlopen
 
 APP_NAME = "DuwillstdeinAutoähPCverkaufen"
+APP_ICON = Path(__file__).with_name("racing-pc.ico")
 MARKET = "https://www.heise.de/preisvergleich/"
 HISTORY_URL = "https://preisvergleich.heise.de/api/gh0/price_history"
 CPU_BENCH = "https://www.notebookcheck.net/Mobile-Processors-Benchmark-List.2436.0.html"
@@ -721,6 +722,8 @@ class Window(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title(APP_NAME)
+        if APP_ICON.is_file():
+            self.iconbitmap(default=str(APP_ICON))
         self.geometry(f"{min(1400, self.winfo_screenwidth() - 50)}x{min(850, self.winfo_screenheight() - 95)}")
         self.minsize(900, 675)
         self.events = queue.Queue()
