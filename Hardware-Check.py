@@ -20,6 +20,7 @@ from tkinter import filedialog, messagebox, ttk
 from urllib.parse import urlencode, urlsplit
 from urllib.request import Request, urlopen
 
+APP_NAME = "DuwillstdeinAutoähPCverkaufen"
 MARKET = "https://www.heise.de/preisvergleich/"
 HISTORY_URL = "https://preisvergleich.heise.de/api/gh0/price_history"
 CPU_BENCH = "https://www.notebookcheck.net/Mobile-Processors-Benchmark-List.2436.0.html"
@@ -719,7 +720,7 @@ class HistoryChart(ttk.Frame):
 class Window(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Hardware-Check")
+        self.title(APP_NAME)
         self.geometry(f"{min(1400, self.winfo_screenwidth() - 50)}x{min(850, self.winfo_screenheight() - 95)}")
         self.minsize(900, 675)
         self.events = queue.Queue()
@@ -731,7 +732,7 @@ class Window(tk.Tk):
         self.summary = ""
         frame = ttk.Frame(self, padding=18)
         frame.pack(fill="both", expand=True)
-        ttk.Label(frame, text="Hardware-Check", font=("Segoe UI", 22, "bold")).pack(anchor="w")
+        ttk.Label(frame, text=APP_NAME, font=("Segoe UI", 22, "bold")).pack(anchor="w")
         self.status = tk.StringVar(value="Hardware wird ausgelesen …")
         ttk.Label(frame, textvariable=self.status).pack(anchor="w", pady=(4, 12))
         actions = ttk.Frame(frame)
@@ -853,7 +854,7 @@ class Window(tk.Tk):
                     self.export.configure(state="normal")
                     self.update_total()
                     self.update_history()
-                messagebox.showerror("Hardware-Check", payload)
+                messagebox.showerror(APP_NAME, payload)
         self.after(80, self.poll)
 
     def selected_row(self):
@@ -989,7 +990,7 @@ class Window(tk.Tk):
             webbrowser.open(current.url)
 
     def save(self):
-        path = filedialog.asksaveasfilename(defaultextension=".csv", initialfile="Hardware-Check.csv",
+        path = filedialog.asksaveasfilename(defaultextension=".csv", initialfile=f"{APP_NAME}.csv",
                                             filetypes=[("CSV", "*.csv")])
         if not path:
             return
